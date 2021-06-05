@@ -55,13 +55,13 @@ class Language:
                 flags = []
                 if system() == "Windows":
                     if source_path.endswith(".cc"):
-                        flags.append("/std:c++14")
+                        flags.append("/std:c++17")
                 else:
                     flags.append("-fPIC")
                     if source_path.endswith(".c"):
                         flags.append("-std=c99")
                     else:
-                        flags.append("-std=c++14")
+                        flags.append("-std=c++17")
 
                 object_paths.append(
                     compiler.compile(
