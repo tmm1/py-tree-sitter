@@ -52,10 +52,12 @@ class Language:
         with TemporaryDirectory(suffix="tree_sitter_language") as out_dir:
             object_paths = []
             for source_path in source_paths:
+                flags = []
                 if system() == "Windows":
-                    flags = None
+                    if source_path.endswith(".cc"):
+                        flags.append("/std:c++17")
                 else:
-                    flags = ["-fPIC"]
+                    flags.append("-fPIC")
                     if source_path.endswith(".c"):
                         flags.append("-std=c99")
                     else:
