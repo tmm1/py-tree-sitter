@@ -4,7 +4,10 @@ if not exist tests\fixtures mkdir test\fixtures
 
 call:fetch_grammar javascript master
 call:fetch_grammar python     master
-call:fetch_grammar haskell    master
+
+@if not exist tests\fixtures\tree-sitter-haskell (
+  git clone https://github.com/lunixbochs/tree-sitter-haskell tests\fixtures\tree-sitter-haskell --depth=1
+)
 
 exit /B 0
 
