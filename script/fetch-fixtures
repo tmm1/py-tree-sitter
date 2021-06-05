@@ -3,6 +3,7 @@
 language_names=(
   tree-sitter-python
   tree-sitter-javascript
+  tree-sitter-haskell
 )
 
 mkdir -p tests/fixtures
