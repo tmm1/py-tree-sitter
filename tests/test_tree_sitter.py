@@ -11,6 +11,7 @@ Language.build_library(
     [
         path.join("tests", "fixtures", "tree-sitter-python"),
         path.join("tests", "fixtures", "tree-sitter-javascript"),
+        path.join("tests", "fixtures", "tree-sitter-haskell"),
     ],
 )
 PYTHON = Language(LIB_PATH, "python")
