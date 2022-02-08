@@ -5,6 +5,10 @@ if not exist tests\fixtures mkdir test\fixtures
 call:fetch_grammar javascript master
 call:fetch_grammar python     master
 
+@if not exist tests\fixtures\tree-sitter-fbdl (
+  git clone https://github.com/Functional-Bus-Description-Language/tree-sitter-fbdl.git tests\fixtures\tree-sitter-fbdl --depth=1
+)
+
 exit /B 0
 
 :fetch_grammar

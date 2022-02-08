@@ -21,3 +21,7 @@ for language in ${language_names[@]}; do
     git reset --hard FETCH_HEAD
   )
 done
+
+if [ ! -d tests/fixtures/tree-sitter-fbdl ]; then
+    git clone https://github.com/Functional-Bus-Description-Language/tree-sitter-fbdl.git tests/fixtures/tree-sitter-fbdl
+fi
