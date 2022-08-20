@@ -1747,16 +1747,18 @@ PyMODINIT_FUNC PyInit_binding(void) {
         (PyTypeObject *)PyType_FromModuleAndSpec(module, &capture_match_string_type_spec, NULL);
 
     state->query_cursor = ts_query_cursor_new();
-    if (   (AddObjectRef(module, "Tree", (PyObject *)state->tree_type) < 0)
-        || (AddObjectRef(module, "TreeCursor", (PyObject *)state->tree_cursor_type) < 0)
-        || (AddObjectRef(module, "Parser", (PyObject *)state->parser_type) < 0)
-        || (AddObjectRef(module, "Node", (PyObject *)state->node_type) < 0)
-        || (AddObjectRef(module, "Query", (PyObject *)state->query_type) < 0)
-        || (AddObjectRef(module, "Range", (PyObject *)state->range_type) < 0)
-        || (AddObjectRef(module, "QueryCapture", (PyObject *)state->query_capture_type) < 0)
-        || (AddObjectRef(module, "CaptureEqCapture", (PyObject *)state->capture_eq_capture_type) < 0)
-        || (AddObjectRef(module, "CaptureEqString", (PyObject *)state->capture_eq_string_type) < 0)
-        || (AddObjectRef(module, "CaptureMatchString", (PyObject *)state->capture_match_string_type) < 0)) {
+    if ((AddObjectRef(module, "Tree", (PyObject *)state->tree_type) < 0) ||
+        (AddObjectRef(module, "TreeCursor", (PyObject *)state->tree_cursor_type) < 0) ||
+        (AddObjectRef(module, "Parser", (PyObject *)state->parser_type) < 0) ||
+        (AddObjectRef(module, "Node", (PyObject *)state->node_type) < 0) ||
+        (AddObjectRef(module, "Query", (PyObject *)state->query_type) < 0) ||
+        (AddObjectRef(module, "Range", (PyObject *)state->range_type) < 0) ||
+        (AddObjectRef(module, "QueryCapture", (PyObject *)state->query_capture_type) < 0) ||
+        (AddObjectRef(module, "CaptureEqCapture", (PyObject *)state->capture_eq_capture_type) <
+         0) ||
+        (AddObjectRef(module, "CaptureEqString", (PyObject *)state->capture_eq_string_type) < 0) ||
+        (AddObjectRef(module, "CaptureMatchString", (PyObject *)state->capture_match_string_type) <
+         0)) {
         goto cleanup;
     }
 
