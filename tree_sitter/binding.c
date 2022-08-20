@@ -1715,10 +1715,9 @@ static int AddObjectRef(PyObject *module, const char *name, PyObject *value) {
         PyErr_Format(PyExc_SystemError, "PyModule_AddObjectRef() %s == NULL", name);
         return -1;
     }
-    Py_INCREF(value);
     int ret = PyModule_AddObject(module, name, value);
-    if (ret < 0) {
-        Py_DECREF(value);
+    if (ret == 0) {
+        Py_INCREF(value);
     }
     return ret;
 }
