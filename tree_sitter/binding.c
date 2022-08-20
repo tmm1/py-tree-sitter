@@ -1681,7 +1681,7 @@ static void module_free(void *self) {
     Py_XDECREF(state->capture_eq_capture_type);
     Py_XDECREF(state->capture_eq_string_type);
     Py_XDECREF(state->capture_match_string_type);
-    Py_DECREF(state->re_compile);
+    Py_XDECREF(state->re_compile);
 }
 
 static PyMethodDef module_methods[] = {
@@ -1711,7 +1711,11 @@ static struct PyModuleDef module_definition = {
 
 // simulate PyModule_AddObjectRef for pre-Python 3.10
 static int AddObjectRef(PyObject *module, const char *name, PyObject *value) {
-    Py_XINCREF(value);
+    if (value == NULL) {
+        PyErr_Format(PyExc_SystemError, "PyModule_AddObjectRef() %s == NULL", name);
+        return -1;
+    }
+    Py_INCREF(value);
     int ret = PyModule_AddObject(module, name, value);
     if (ret < 0) {
         Py_DECREF(value);
@@ -1743,13 +1747,6 @@ PyMODINIT_FUNC PyInit_binding(void) {
     state->capture_match_string_type =
         (PyTypeObject *)PyType_FromModuleAndSpec(module, &capture_match_string_type_spec, NULL);
 
-    if (!(state->tree_type && state->tree_cursor_type && state->parser_type && state->node_type &&
-          state->query_type && state->range_type && state->query_capture_type &&
-          state->capture_eq_capture_type && state->capture_eq_string_type &&
-          state->capture_match_string_type)) {
-        PyErr_SetString(PyExc_ImportError, "Failed to create internal types");
-        goto cleanup;
-    }
     state->query_cursor = ts_query_cursor_new();
     if (   (AddObjectRef(module, "Tree", (PyObject *)state->tree_type) < 0)
         || (AddObjectRef(module, "TreeCursor", (PyObject *)state->tree_cursor_type) < 0)
